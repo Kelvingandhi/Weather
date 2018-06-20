@@ -23,6 +23,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.kelvin.weather.Model.Cities;
+import com.example.kelvin.weather.Model.Weather;
 import com.example.kelvin.weather.Service.CityNameParserService;
 import com.google.gson.Gson;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
@@ -73,8 +74,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             citySuggestions = city_string.split("~");
         }
         else{
-            citySuggestions = new String[]{"New Delhi, IN","New York City, US","Jersey City, US","Los Angeles, US",
-                    "Toronto, CA","Melbourne, AU","Dubai, AE","Beijing, CN","Mumbai, IN"};
+            citySuggestions = new String[]{"New Delhi,IN","New York City,US","Jersey City,US","Los Angeles,US",
+                    "Toronto,CA","Melbourne,AU","Dubai,AE","Beijing,CN","Mumbai,IN"};
         }
 
 
@@ -108,6 +109,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT).show();
+
+                FetchCurrentWeather curr_data = new FetchCurrentWeather();
+                curr_data.execute(new String[]{query});
+
                 return true;
             }
 
@@ -220,4 +225,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    private class FetchCurrentWeather extends AsyncTask<String, Void, Weather> {
+        @Override
+        protected Weather doInBackground(String... params) {
+
+            String data = ((new OpenWeatherAPIWebClient().getWeatherData(params[0])));
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Weather weather) {
+            super.onPostExecute(weather);
+
+
+
+        }
+    }
 }

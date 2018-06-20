@@ -126,7 +126,7 @@ public class CityNameParserService extends Service {
                     city.setLongi((double)cityjson.getLongi());
                     city.setCountry_code(cityjson.getCountry_code());*/
 
-                    cityList.add(cityjson.getCity_name()+ " ,"+cityjson.getCountry_code());
+                    cityList.add(cityjson.getCity_name()+ ","+cityjson.getCountry_code());
                 }
 
                 reader.close();
